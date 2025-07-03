@@ -1,0 +1,20 @@
+[package]
+name = "zhsh"
+version = "0.18.0"
+edition = "2024"
+
+[dependencies]
+xxhash-rust = { version = "0.8.15", features = ["xxh3"] }
+rayon = "1.5"
+md5 = "0.8.0"
+crc32fast = "1.3"
+
+[profile.release]
+opt-level = "z"       # optimisé pour la taille
+strip = "symbols"         # supprime les symboles de debug (à partir de Rust 1.60)
+lto = true            # link-time optimization
+codegen-units = 1     # un seul codegen unit (meilleure optimisation)
+panic = "abort"       # pas de backtrace ni unwinding
+
+[package.metadata.windows]
+subsystem = "windows"
